@@ -16,9 +16,7 @@ const spriteHeight = 523;
 let gameFrame = 0;
 const staggerFrames = 5;
 
-const spriteAnimations = [
-
-]
+const spriteAnimations = [];
 
 const animationsStates = [
     {
@@ -61,7 +59,7 @@ const animationsStates = [
         name: 'getHit',
         frames: 4,
     },
-]
+];
 
 animationsStates.forEach((state, index) => {
     let frames = {
@@ -75,8 +73,12 @@ animationsStates.forEach((state, index) => {
     spriteAnimations[state.name] = frames;
 })
 
-console.log(spriteAnimations);
-
+/**
+ * gameFrame 변수는 함수 실행시 마다 증가
+ * gameFrame 변수가 staggerFrames 만큼 증가 했을 때 Math.floor(gameFrame / staggerFrames) 로 계산된 정수 값이 1 증가
+ * sprite 이미지 배열의 길이로 나누기 때문에 그 결과는 sprite 이미지 배열의 index
+ * 때문에 staggerFrames 값이 증가 할 수록 랜더링 해야 할 sprite 이미지 간격이 넓어짐(idle frame 0 -> idle frame 1)
+ */
 function animate() {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     let position = Math.floor(gameFrame / staggerFrames) % spriteAnimations[playerState].loc.length;
